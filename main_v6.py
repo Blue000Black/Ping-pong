@@ -212,8 +212,15 @@ class Ball():
 class Menu():
     def __init__(self):
         sprites['settings'] = self
-        self.rect = Rect(500, 75, 400, 800)
+        self.rect = Rect(500, 75, 500, 630)
         self.btns = dict()
+        self.btns['Руководство по игре'] = 0
+        self.btns['Новая игра'] = 0
+        self.btns['Загрузить игру'] = 0
+        self.btns['Сохранить игру'] = 0
+        self.btns['Завершить партию'] = 0
+        self.btns['Удалить партию'] = 0
+        self.btns['Выйти из игры'] = 0
         self.t = 0
 
     def draw(self):
@@ -222,9 +229,20 @@ class Menu():
         global pred
         if status == 'paused':
             draw.rect(mw, (200, 200, 255), self.rect, 0)
-        if keys_pressed[K_ESCAPE] and t() - self.t >= 0.3:
-            status = pred
-            self.t = t()
+            i = 0
+            mw.blit(font.render('Меню', True, (255, 0, 255)), (510, 75))
+            for btn in self.btns.keys():
+                self.btns[btn] = Rect(510, 140+i*80, 480, 70)
+                draw.rect(mw, (0, 0, 0), self.btns[btn], 0)
+                mw.blit(font.render(btn, True, (255, 0, 255)), (515, 140+i*80))
+                i += 1
+            if keys_pressed[K_ESCAPE] and t() - self.t >= 0.3:
+                status = pred
+                self.t = t()
+            self.btnpressed()
+
+    def btnpressed(self):
+        pass
 
     def update(self):
         pass
@@ -336,9 +354,10 @@ if __name__ == '__main__':
             cnt = 0
             last = 0
             status = 'toserve'
-        if keys_pressed[K_ESCAPE]:
+        if keys_pressed[K_ESCAPE] and status != 'paused' and t() - menu.t >= 0.3:
             pred = status
             status = 'paused'
+            menu.t = t()
         mw.fill((245, 155, 66))
         draw_display()
         clock.tick(fps)

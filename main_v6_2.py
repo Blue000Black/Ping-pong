@@ -366,6 +366,7 @@ class NewGame():
         global player2
         global last
         global level
+        global l_scores
         for e in event.get():
             if e.type == MOUSEBUTTONDOWN:
                 if self.maxscoreup.collidepoint(e.pos):
@@ -389,6 +390,7 @@ class NewGame():
                     player1.score = 0
                     player2.score = 0
                     status = 'toserve'
+                    l_scores = font.render(str(score1) + ':' + str(score2), True, scores_c)
                 if self.levelm.collidepoint(e.pos):
                     for i in sprites.keys():
                         sprites[i].reset()
@@ -402,6 +404,7 @@ class NewGame():
                     player2.score = 0
                     sprites['ball'].speed = 400
                     status = 'toserve'
+                    l_scores = font.render(str(score1) + ':' + str(score2), True, scores_c)
                 if self.levelh.collidepoint(e.pos):
                     for i in sprites.keys():
                         sprites[i].reset()
@@ -415,6 +418,7 @@ class NewGame():
                     player2.score = 0
                     sprites['ball'].speed = 500
                     status = 'toserve'
+                    l_scores = font.render(str(score1) + ':' + str(score2), True, scores_c)
 
     def update(self):
         pass
@@ -572,6 +576,7 @@ if __name__ == '__main__':
             score2 = 0
             cnt = 0
             last = 0
+            l_scores = font.render(str(score1) + ':' + str(score2), True, scores_c)
             status = 'toserve'
         if keys_pressed[K_ESCAPE] and status != 'paused' and t() - menu.t >= 0.3:
             if status in ['toserve', 'onserve', 'serve', 'finish', 'lose', 'default']:

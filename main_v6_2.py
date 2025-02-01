@@ -474,6 +474,7 @@ def changep():
 if __name__ == '__main__':
     fps = 90
     status = 'toserve'
+    pred = 'toserve'
     level = 'medium'
     score1 = 0
     score2 = 0
@@ -514,6 +515,7 @@ if __name__ == '__main__':
         score2 = int(score2)
         player1.score = int(player1.score)
         player2.score = int(player2.score)
+        l_scores = font.render(str(score1) + ':' + str(score2), True, scores_c)
         i = 0
         while i < score2 + score1:
             if i - last >= serves:
